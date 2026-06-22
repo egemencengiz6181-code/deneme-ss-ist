@@ -58,11 +58,11 @@ export default function IletisimPage() {
             <span className="font-semibold">Ücretsiz Danışma</span>
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl sm:text-6xl font-black text-white mb-6">
+            className="text-4xl sm:text-6xl font-black text-[#0a1628] dark:text-white mb-6">
             Bizimle <span className="text-gold-gradient">İletişime Geç</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-400 text-lg max-w-xl mx-auto">
+            className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-lg max-w-xl mx-auto">
             Ücretsiz danışma randevusu al veya sorularını bize ilet. En geç 24 saat içinde yanıt veririz.
           </motion.p>
         </div>
@@ -77,15 +77,15 @@ export default function IletisimPage() {
               <AnimatedSection direction="left">
                 <div className="glass-strong rounded-2xl p-6">
                   <Trophy className="w-10 h-10 text-[#D4AF37] mb-4 trophy-pulse" />
-                  <h2 className="text-xl font-black text-white mb-2">Neden Bizi Seçmelisin?</h2>
-                  <p className="text-gray-400 text-sm mb-5">
+                  <h2 className="text-xl font-black text-[#0a1628] dark:text-white mb-2">Neden Bizi Seçmelisin?</h2>
+                  <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-sm mb-5">
                     7 aşamalı sistemi bizzat deneyimlemek için bir adım at.
                   </p>
                   <div className="space-y-3">
                     {["Ücretsiz ilk değerlendirme", "Kişiselleştirilmiş seviye testi", "7 aşamalı sistem tanıtımı", "Rehber atama ve plan oluşturma"].map((item) => (
                       <div key={item} className="flex items-center gap-2">
                         <CheckCircle className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
-                        <span className="text-gray-300 text-sm">{item}</span>
+                        <span className="text-gray-600 dark:text-gray-300 text-sm">{item}</span>
                       </div>
                     ))}
                   </div>
@@ -95,13 +95,13 @@ export default function IletisimPage() {
               <AnimatedSection direction="left" delay={0.1}>
                 <div className="space-y-4">
                   {contactInfo.map(({ icon: Icon, label, value, href }) => (
-                    <div key={label} className="glass rounded-xl p-4 border border-white/5 hover:border-[#D4AF37]/20 card-hover">
+                    <div key={label} className="glass rounded-xl p-4 border border-black/5 dark:border-white/5 hover:border-[#D4AF37]/20 card-hover">
                       <div className="flex items-start gap-3">
                         <div className="w-9 h-9 rounded-lg bg-[#D4AF37]/15 flex items-center justify-center flex-shrink-0">
                           <Icon className="w-4 h-4 text-[#D4AF37]" />
                         </div>
                         <div>
-                          <div className="text-gray-500 text-xs mb-0.5">{label}</div>
+                          <div className="text-gray-500 dark:text-gray-500 text-xs mb-0.5">{label}</div>
                           {href ? (
                             <a href={href} className="text-gray-200 text-sm font-medium hover:text-[#D4AF37] transition-colors">
                               {value}
@@ -130,17 +130,17 @@ export default function IletisimPage() {
                       <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#A8882A] flex items-center justify-center glow-gold">
                         <CheckCircle className="w-8 h-8 text-[#060D18]" />
                       </div>
-                      <h3 className="text-white font-black text-2xl mb-2">Mesajın Alındı!</h3>
-                      <p className="text-gray-400">En geç 24 saat içinde seninle iletişime geçeceğiz.</p>
+                      <h3 className="text-[#0a1628] dark:text-white font-black text-2xl mb-2">Mesajın Alındı!</h3>
+                      <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400">En geç 24 saat içinde seninle iletişime geçeceğiz.</p>
                     </motion.div>
                   ) : (
                     <>
-                      <h2 className="text-xl font-black text-white mb-6">Danışma Formu</h2>
+                      <h2 className="text-xl font-black text-[#0a1628] dark:text-white mb-6">Danışma Formu</h2>
                       <form onSubmit={handleSubmit} noValidate className="space-y-5">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                           {/* Name */}
                           <div>
-                            <label className="block text-gray-400 text-xs font-semibold mb-1.5 uppercase tracking-wider">
+                            <label className="block text-gray-500 dark:text-gray-500 dark:text-gray-400 text-xs font-semibold mb-1.5 uppercase tracking-wider">
                               Ad Soyad *
                             </label>
                             <input
@@ -148,14 +148,14 @@ export default function IletisimPage() {
                               value={formData.name}
                               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                               placeholder="Adınız Soyadınız"
-                              className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/15 transition-all ${errors.name ? "border-red-500" : "border-white/10 focus:border-[#D4AF37]/50"}`}
+                              className={`w-full px-4 py-3 bg-black/5 dark:bg-white/5 border rounded-xl text-[#0a1628] dark:text-white placeholder-gray-400 dark:placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/25 transition-all ${errors.name ? "border-red-500" : "border-black/10 dark:border-white/10 focus:border-[#D4AF37]/60"}`}
                             />
                             {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
                           </div>
 
                           {/* Phone */}
                           <div>
-                            <label className="block text-gray-400 text-xs font-semibold mb-1.5 uppercase tracking-wider">
+                            <label className="block text-gray-500 dark:text-gray-500 dark:text-gray-400 text-xs font-semibold mb-1.5 uppercase tracking-wider">
                               Telefon *
                             </label>
                             <input
@@ -163,7 +163,7 @@ export default function IletisimPage() {
                               value={formData.phone}
                               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                               placeholder="+90 5XX XXX XX XX"
-                              className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/15 transition-all ${errors.phone ? "border-red-500" : "border-white/10 focus:border-[#D4AF37]/50"}`}
+                              className={`w-full px-4 py-3 bg-black/5 dark:bg-white/5 border rounded-xl text-[#0a1628] dark:text-white placeholder-gray-400 dark:placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/25 transition-all ${errors.phone ? "border-red-500" : "border-black/10 dark:border-white/10 focus:border-[#D4AF37]/60"}`}
                             />
                             {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
                           </div>
@@ -171,7 +171,7 @@ export default function IletisimPage() {
 
                         {/* Email */}
                         <div>
-                          <label className="block text-gray-400 text-xs font-semibold mb-1.5 uppercase tracking-wider">
+                          <label className="block text-gray-500 dark:text-gray-500 dark:text-gray-400 text-xs font-semibold mb-1.5 uppercase tracking-wider">
                             E-posta *
                           </label>
                           <input
@@ -179,20 +179,20 @@ export default function IletisimPage() {
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             placeholder="ornek@email.com"
-                            className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/15 transition-all ${errors.email ? "border-red-500" : "border-white/10 focus:border-[#D4AF37]/50"}`}
+                            className={`w-full px-4 py-3 bg-black/5 dark:bg-white/5 border rounded-xl text-[#0a1628] dark:text-white placeholder-gray-400 dark:placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/25 transition-all ${errors.email ? "border-red-500" : "border-black/10 dark:border-white/10 focus:border-[#D4AF37]/60"}`}
                           />
                           {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
                         </div>
 
                         {/* Subject */}
                         <div>
-                          <label className="block text-gray-400 text-xs font-semibold mb-1.5 uppercase tracking-wider">
+                          <label className="block text-gray-500 dark:text-gray-500 dark:text-gray-400 text-xs font-semibold mb-1.5 uppercase tracking-wider">
                             Konu
                           </label>
                           <select
                             value={formData.subject}
                             onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/15 focus:border-[#D4AF37]/50 transition-all appearance-none"
+                            className="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl text-[#0a1628] dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/25 focus:border-[#D4AF37]/60 transition-all appearance-none"
                           >
                             <option value="" className="bg-[#0A1628]">Konu seçin</option>
                             <option value="ucretsiz-danisma" className="bg-[#0A1628]">Ücretsiz Danışma</option>
@@ -205,7 +205,7 @@ export default function IletisimPage() {
 
                         {/* Message */}
                         <div>
-                          <label className="block text-gray-400 text-xs font-semibold mb-1.5 uppercase tracking-wider">
+                          <label className="block text-gray-500 dark:text-gray-500 dark:text-gray-400 text-xs font-semibold mb-1.5 uppercase tracking-wider">
                             Mesaj *
                           </label>
                           <textarea
@@ -213,7 +213,7 @@ export default function IletisimPage() {
                             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                             placeholder="Bize ne sormak istiyorsunuz?"
                             rows={4}
-                            className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/15 transition-all resize-none ${errors.message ? "border-red-500" : "border-white/10 focus:border-[#D4AF37]/50"}`}
+                            className={`w-full px-4 py-3 bg-black/5 dark:bg-white/5 border rounded-xl text-[#0a1628] dark:text-white placeholder-gray-400 dark:placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/25 transition-all resize-none ${errors.message ? "border-red-500" : "border-black/10 dark:border-white/10 focus:border-[#D4AF37]/60"}`}
                           />
                           {errors.message && <p className="text-red-400 text-xs mt-1">{errors.message}</p>}
                         </div>

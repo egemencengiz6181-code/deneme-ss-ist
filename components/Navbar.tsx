@@ -4,8 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 const navLinks = [
   { href: "/", label: "Ana Sayfa" },
@@ -21,6 +22,33 @@ const navLinks = [
   { href: "/subelerimiz", label: "Şubelerimiz" },
   { href: "/iletisim", label: "İletişim" },
 ];
+
+function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) {
+    return (
+      <div className="w-9 h-9 rounded-full border border-[#D4AF37]/30 bg-transparent" />
+    );
+  }
+
+  const isDark = theme === "dark";
+
+  return (
+    <button
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      aria-label={isDark ? "Açık moda geç" : "Koyu moda geç"}
+      className="w-9 h-9 rounded-full border border-[#D4AF37]/40 flex items-center justify-center
+        bg-transparent hover:bg-[#D4AF37]/10 transition-all duration-200 hover:border-[#D4AF37]/70
+        text-[#D4AF37] hover:scale-110 active:scale-95"
+    >
+      {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+    </button>
+  );
+}
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -43,7 +71,7 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#060D18]/95 backdrop-blur-md border-b border-[#D4AF37]/20 shadow-lg shadow-black/30"
+          ? "bg-white/95 dark:bg-[#060D18]/95 backdrop-blur-md border-b border-[#D4AF37]/20 shadow-lg shadow-black/10 dark:shadow-black/30"
           : "bg-transparent"
       }`}
     >
@@ -56,7 +84,7 @@ export default function Navbar() {
             </div>
             <div className="flex flex-col leading-none">
               <span className="text-[#D4AF37] font-black text-lg tracking-wider uppercase">Deneme</span>
-              <span className="text-white font-bold text-xs tracking-[0.25em] uppercase">Üssü</span>
+              <span className="text-[#0a1628] dark:text-white font-bold text-xs tracking-[0.25em] uppercase">Üssü</span>
             </div>
           </Link>
 
@@ -70,7 +98,7 @@ export default function Navbar() {
                   onMouseEnter={() => setDropdownOpen(true)}
                   onMouseLeave={() => setDropdownOpen(false)}
                 >
-                  <button className="flex items-center gap-1 px-4 py-2 text-gray-300 hover:text-[#D4AF37] transition-colors duration-200 text-sm font-medium">
+                  <button className="flex items-center gap-1 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-[#D4AF37] dark:hover:text-[#D4AF37] transition-colors duration-200 text-sm font-medium">
                     {link.label}
                     <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`} />
                   </button>
@@ -81,14 +109,16 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -8 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute top-full left-0 mt-1 w-64 bg-[#060D18]/75 backdrop-blur-md border border-[#D4AF37]/20 rounded-xl overflow-hidden py-2"
+                        className="absolute top-full left-0 mt-1 w-64 bg-white/95 dark:bg-[#060D18]/95 backdrop-blur-md border border-[#D4AF37]/20 rounded-xl overflow-hidden py-2 shadow-xl shadow-black/10 dark:shadow-black/30"
                       >
                         {link.children.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
                             className={`block px-4 py-3 text-sm transition-colors duration-150 hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] ${
-                              isActive(child.href) ? "text-[#D4AF37] bg-[#D4AF37]/10" : "text-gray-300"
+                              isActive(child.href)
+                                ? "text-[#D4AF37] bg-[#D4AF37]/10"
+                                : "text-gray-600 dark:text-gray-300"
                             }`}
                           >
                             {child.label}
@@ -105,7 +135,7 @@ export default function Navbar() {
                   className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 ${
                     isActive(link.href!)
                       ? "text-[#D4AF37]"
-                      : "text-gray-300 hover:text-[#D4AF37]"
+                      : "text-gray-600 dark:text-gray-300 hover:text-[#D4AF37]"
                   }`}
                 >
                   {link.label}
@@ -120,8 +150,9 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
+          {/* CTA + Theme Toggle */}
+          <div className="hidden lg:flex items-center gap-2">
+            <ThemeToggle />
             <Link
               href="/iletisim"
               className="bg-gradient-to-r from-[#D4AF37] to-[#A8882A] text-[#060D18] font-bold text-sm px-5 py-2.5 rounded-full glow-gold hover:from-[#F0C040] hover:to-[#D4AF37] hover:scale-105 hover:ring-2 hover:ring-[#D4AF37]/40 hover:ring-offset-1 hover:ring-offset-transparent transition-all duration-200"
@@ -131,13 +162,16 @@ export default function Navbar() {
           </div>
 
           {/* Mobile toggle */}
-          <button
-            className="lg:hidden p-2 text-gray-300 hover:text-[#D4AF37] transition-colors"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Menü"
-          >
-            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="lg:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              className="p-2 text-gray-600 dark:text-gray-300 hover:text-[#D4AF37] transition-colors"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Menü"
+            >
+              {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -149,7 +183,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden overflow-hidden bg-[#060D18]/98 backdrop-blur-md border-t border-[#D4AF37]/10"
+            className="lg:hidden overflow-hidden bg-white/98 dark:bg-[#060D18]/98 backdrop-blur-md border-t border-[#D4AF37]/10"
           >
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) =>
@@ -163,7 +197,7 @@ export default function Navbar() {
                         key={child.href}
                         href={child.href}
                         onClick={() => setMenuOpen(false)}
-                        className="block pl-6 pr-3 py-2.5 text-sm text-gray-300 hover:text-[#D4AF37] transition-colors"
+                        className="block pl-6 pr-3 py-2.5 text-sm text-gray-600 dark:text-gray-300 hover:text-[#D4AF37] transition-colors"
                       >
                         {child.label}
                       </Link>
@@ -177,7 +211,7 @@ export default function Navbar() {
                     className={`block px-3 py-2.5 text-sm font-medium rounded-lg transition-colors ${
                       isActive(link.href!)
                         ? "text-[#D4AF37] bg-[#D4AF37]/10"
-                        : "text-gray-300 hover:text-[#D4AF37] hover:bg-white/5"
+                        : "text-gray-600 dark:text-gray-300 hover:text-[#D4AF37] hover:bg-[#D4AF37]/5 dark:hover:bg-white/5"
                     }`}
                   >
                     {link.label}

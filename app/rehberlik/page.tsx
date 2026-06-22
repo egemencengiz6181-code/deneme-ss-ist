@@ -69,11 +69,11 @@ export default function RehberlikPage() {
             <span className="font-semibold">Aşama 4 & 7 – Rehberlik Kontrolü</span>
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl sm:text-6xl font-black text-white mb-6">
+            className="text-4xl sm:text-6xl font-black text-[#0a1628] dark:text-white mb-6">
             Rehberlik <span className="text-gold-gradient">Sistemi</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-400 text-lg max-w-2xl mx-auto">
+            className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-lg max-w-2xl mx-auto">
             Öğrenciyi sadece analiz etmiyoruz; haftalık görüşmeler, gelişim takibi ve destek sistemiyle her adımda yanındayız.
           </motion.p>
         </div>
@@ -84,10 +84,10 @@ export default function RehberlikPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12">
             <span className="inline-block text-[#D4AF37] text-sm font-bold tracking-widest uppercase mb-3">Aşama 4</span>
-            <h2 className="text-3xl sm:text-4xl font-black text-white mb-3">
+            <h2 className="text-3xl sm:text-4xl font-black text-[#0a1628] dark:text-white mb-3">
               Rehberlik <span className="text-gold-gradient">Kontrolü</span>
             </h2>
-            <p className="text-gray-400 max-w-xl mx-auto">
+            <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
               Öğrencinin deneme sürecindeki en kritik dönüm noktası. Doğru yönde ilerlediğinden emin ol.
             </p>
           </AnimatedSection>
@@ -95,19 +95,19 @@ export default function RehberlikPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {guidanceTypes.map(({ icon: Icon, title, desc, color, points }, i) => (
               <AnimatedSection key={title} delay={i * 0.15}>
-                <div className="glass rounded-2xl p-7 card-hover border border-white/5 hover:border-[#D4AF37]/20 h-full"
+                <div className="glass rounded-2xl p-7 card-hover border border-black/5 dark:border-white/5 hover:border-[#D4AF37]/20 h-full"
                   style={{ boxShadow: `0 0 30px ${color}10` }}>
                   <div className="w-14 h-14 rounded-2xl mb-5 flex items-center justify-center"
                     style={{ background: `${color}20`, border: `1px solid ${color}30` }}>
                     <Icon className="w-7 h-7" style={{ color }} />
                   </div>
-                  <h3 className="text-white font-bold text-xl mb-3">{title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed mb-5">{desc}</p>
+                  <h3 className="text-[#0a1628] dark:text-white font-bold text-xl mb-3">{title}</h3>
+                  <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-5">{desc}</p>
                   <div className="space-y-2">
                     {points.map((p) => (
                       <div key={p} className="flex items-center gap-2">
                         <CheckCircle className="w-3.5 h-3.5 flex-shrink-0" style={{ color }} />
-                        <span className="text-gray-300 text-xs">{p}</span>
+                        <span className="text-gray-600 dark:text-gray-300 text-xs">{p}</span>
                       </div>
                     ))}
                   </div>
@@ -119,14 +119,14 @@ export default function RehberlikPage() {
       </section>
 
       {/* Aşama 7: Destek Sistemi */}
-      <section className="py-20 bg-gradient-to-b from-transparent via-[#0A1628]/40 to-transparent">
+      <section className="py-20 bg-gradient-to-b from-transparent via-[#f0ece2]/80 dark:via-[#0A1628]/40 to-transparent">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12">
             <span className="inline-block text-[#D4AF37] text-sm font-bold tracking-widest uppercase mb-3">Aşama 7</span>
-            <h2 className="text-3xl sm:text-4xl font-black text-white mb-3">
+            <h2 className="text-3xl sm:text-4xl font-black text-[#0a1628] dark:text-white mb-3">
               Destek <span className="text-gold-gradient">Sistemi</span>
             </h2>
-            <p className="text-gray-400 max-w-xl mx-auto">
+            <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
               Deneme Üssü ile başarıyı birlikte yazalım! Etüt, grup ve özel ders ile tam destek.
             </p>
           </AnimatedSection>
@@ -139,15 +139,15 @@ export default function RehberlikPage() {
                     style={{ background: `${color}20`, border: `1px solid ${color}30` }}>
                     <Icon className="w-7 h-7" style={{ color }} />
                   </div>
-                  <div className="glass rounded-2xl p-6 flex-1 border border-white/5 hover:border-[#D4AF37]/20 card-hover">
+                  <div className="glass rounded-2xl p-6 flex-1 border border-black/5 dark:border-white/5 hover:border-[#D4AF37]/20 card-hover">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full"
                         style={{ background: `${color}20`, color }}>
                         {step}. Destek
                       </span>
-                      <h3 className="text-white font-black text-xl">{title}</h3>
+                      <h3 className="text-[#0a1628] dark:text-white font-black text-xl">{title}</h3>
                     </div>
-                    <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>
+                    <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{desc}</p>
                   </div>
                 </div>
               </AnimatedSection>
@@ -170,7 +170,7 @@ export default function RehberlikPage() {
                 <div className="glass rounded-2xl p-5 text-center border border-[#D4AF37]/10 hover:border-[#D4AF37]/30 card-hover">
                   <Icon className="w-6 h-6 mx-auto mb-2 text-[#D4AF37]" />
                   <div className="text-2xl font-black text-gold-gradient mb-1">{value}</div>
-                  <div className="text-gray-500 text-xs">{label}</div>
+                  <div className="text-gray-500 dark:text-gray-500 text-xs">{label}</div>
                 </div>
               </AnimatedSection>
             ))}
@@ -183,10 +183,10 @@ export default function RehberlikPage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <AnimatedSection>
             <Trophy className="w-12 h-12 mx-auto mb-4 text-[#D4AF37] trophy-pulse" />
-            <h2 className="text-3xl font-black text-white mb-4">
+            <h2 className="text-3xl font-black text-[#0a1628] dark:text-white mb-4">
               Rehberinle <span className="text-gold-gradient">Tanış!</span>
             </h2>
-            <p className="text-gray-400 mb-8">İlk ücretsiz görüşme için hemen başvur.</p>
+            <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 mb-8">İlk ücretsiz görüşme için hemen başvur.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/iletisim"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37] to-[#A8882A] text-[#060D18] font-black px-8 py-4 rounded-full hover:from-[#F0C040] hover:to-[#D4AF37] transition-all duration-200 text-sm">

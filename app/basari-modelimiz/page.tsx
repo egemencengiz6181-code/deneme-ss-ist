@@ -167,11 +167,11 @@ function StageCard({ stage, index }: { stage: (typeof stages)[0]; index: number 
                 Aşama {stage.number}
               </span>
             </div>
-            <h3 className="text-white font-black text-xl leading-tight">{stage.title}</h3>
-            <p className="text-gray-400 text-sm">{stage.subtitle}</p>
+            <h3 className="text-[#0a1628] dark:text-white font-black text-xl leading-tight">{stage.title}</h3>
+            <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-sm">{stage.subtitle}</p>
           </div>
           <ChevronDown
-            className={`w-5 h-5 text-gray-400 flex-shrink-0 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+            className={`w-5 h-5 text-gray-500 dark:text-gray-500 dark:text-gray-400 flex-shrink-0 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
           />
         </button>
 
@@ -182,19 +182,19 @@ function StageCard({ stage, index }: { stage: (typeof stages)[0]; index: number 
           transition={{ duration: 0.3 }}
           className="overflow-hidden"
         >
-          <div className="px-6 pb-6 border-t border-white/10 pt-5">
-            <p className="text-gray-300 text-sm leading-relaxed mb-6">{stage.description}</p>
+          <div className="px-6 pb-6 border-t border-black/10 dark:border-white/10 pt-5">
+            <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6">{stage.description}</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               {stage.details.map(({ label, desc }) => (
-                <div key={label} className="bg-white/5 rounded-xl p-4">
+                <div key={label} className="bg-black/5 dark:bg-white/5 rounded-xl p-4">
                   <div className="font-bold text-sm mb-1" style={{ color: stage.color }}>{label}</div>
-                  <div className="text-gray-400 text-xs">{desc}</div>
+                  <div className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-xs">{desc}</div>
                 </div>
               ))}
             </div>
             <div className="flex flex-wrap gap-2">
               {stage.highlights.map((h) => (
-                <span key={h} className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-white/5 text-gray-300">
+                <span key={h} className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/5 text-gray-600 dark:text-gray-300">
                   <CheckCircle className="w-3 h-3" style={{ color: stage.color }} />
                   {h}
                 </span>
@@ -227,7 +227,7 @@ export default function BasariModelimizPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl sm:text-6xl font-black text-white mb-6"
+            className="text-4xl sm:text-6xl font-black text-[#0a1628] dark:text-white mb-6"
           >
             7 Aşamalı{" "}
             <span className="text-gold-gradient">Başarı Modeli</span>
@@ -236,7 +236,7 @@ export default function BasariModelimizPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-400 text-lg max-w-2xl mx-auto mb-10"
+            className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-lg max-w-2xl mx-auto mb-10"
           >
             Her aşama, bir öncekinin üzerine inşa edilen bilimsel bir döngü oluşturur.
             Öğrencinin hedefleri ve profiliyle uyumlu, kişiselleştirilmiş başarı yolculuğu.
@@ -276,13 +276,13 @@ export default function BasariModelimizPage() {
       </section>
 
       {/* Cycle visual */}
-      <section className="py-20 bg-gradient-to-b from-transparent via-[#0A1628]/40 to-transparent">
+      <section className="py-20 bg-gradient-to-b from-transparent via-[#f0ece2]/80 dark:via-[#0A1628]/40 to-transparent">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <AnimatedSection className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">
+            <h2 className="text-3xl sm:text-4xl font-black text-[#0a1628] dark:text-white mb-4">
               Döngüsel <span className="text-gold-gradient">Gelişim Sistemi</span>
             </h2>
-            <p className="text-gray-400 max-w-xl mx-auto">
+            <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
               Her deneme döngüsü bir öncekinden daha güçlü başlar. Net artışı istikrarlı ve ölçülebilir.
             </p>
           </AnimatedSection>
@@ -297,7 +297,7 @@ export default function BasariModelimizPage() {
               <AnimatedSection key={net} delay={i * 0.15}>
                 <div className="glass rounded-2xl p-6 text-center card-hover border border-[#D4AF37]/10 hover:border-[#D4AF37]/30">
                   <div className="text-[#D4AF37] font-black text-2xl mb-1">{net}</div>
-                  <div className="text-gray-400 text-sm">{label}</div>
+                  <div className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-sm">{label}</div>
                   <div className="mt-3 flex justify-center gap-0.5">
                     {[...Array(week)].map((_, j) => (
                       <Star key={j} className="w-3 h-3 fill-[#D4AF37] text-[#D4AF37]" />
@@ -315,10 +315,10 @@ export default function BasariModelimizPage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <AnimatedSection>
             <Trophy className="w-12 h-12 mx-auto mb-4 text-[#D4AF37] trophy-pulse" />
-            <h2 className="text-3xl font-black text-white mb-4">
+            <h2 className="text-3xl font-black text-[#0a1628] dark:text-white mb-4">
               Bu Sistemi <span className="text-gold-gradient">Yaşa!</span>
             </h2>
-            <p className="text-gray-400 mb-8">
+            <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 mb-8">
               7 aşamalı sistemimizin tüm avantajlarından yararlanmak için hemen başvur.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -45,11 +45,11 @@ export default function SubelerimizPage() {
             <span className="font-semibold">İstanbul Geneli 13 Şube</span>
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl sm:text-6xl font-black text-white mb-6">
+            className="text-4xl sm:text-6xl font-black text-[#0a1628] dark:text-white mb-6">
             Şubelerimiz
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-400 text-lg max-w-xl mx-auto">
+            className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-lg max-w-xl mx-auto">
             İstanbul genelinde 13 şubemizle sizlere hizmet veriyoruz. En yakın şubeyi bulun.
           </motion.p>
           {/* Stats */}
@@ -62,7 +62,7 @@ export default function SubelerimizPage() {
             ].map(({ value, label }) => (
               <div key={label} className="glass rounded-xl px-6 py-3 text-center border border-[#D4AF37]/20">
                 <div className="text-2xl font-black text-gold-gradient">{value}</div>
-                <div className="text-gray-400 text-xs">{label}</div>
+                <div className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-xs">{label}</div>
               </div>
             ))}
           </motion.div>
@@ -76,23 +76,23 @@ export default function SubelerimizPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {/* Search */}
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 dark:text-gray-500 dark:text-gray-400" />
                 <input
                   type="text"
                   placeholder="Şube veya adres ara..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 text-sm focus:outline-none focus:border-[#D4AF37]/50 transition-colors"
+                  className="w-full pl-10 pr-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl text-[#0a1628] dark:text-white placeholder-gray-400 dark:placeholder-gray-500 text-sm focus:outline-none focus:border-[#D4AF37]/60 transition-colors"
                 />
               </div>
 
               {/* District filter */}
               <div className="relative">
-                <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 dark:text-gray-500 dark:text-gray-400" />
                 <select
                   value={selectedDistrict}
                   onChange={(e) => setSelectedDistrict(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-[#D4AF37]/50 transition-colors appearance-none cursor-pointer"
+                  className="w-full pl-10 pr-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl text-[#0a1628] dark:text-white text-sm focus:outline-none focus:border-[#D4AF37]/60 transition-colors appearance-none cursor-pointer"
                 >
                   <option value="Tümü" className="bg-[#0A1628]">Tüm İlçeler</option>
                   {districts.map((d) => (
@@ -103,11 +103,11 @@ export default function SubelerimizPage() {
 
               {/* Type filter */}
               <div className="relative">
-                <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 dark:text-gray-500 dark:text-gray-400" />
                 <select
                   value={selectedType}
                   onChange={(e) => setSelectedType(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-[#D4AF37]/50 transition-colors appearance-none cursor-pointer"
+                  className="w-full pl-10 pr-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl text-[#0a1628] dark:text-white text-sm focus:outline-none focus:border-[#D4AF37]/60 transition-colors appearance-none cursor-pointer"
                 >
                   <option value="Tümü" className="bg-[#0A1628]">Tüm Kurum Tipleri</option>
                   {types.map((t) => (
@@ -127,7 +127,7 @@ export default function SubelerimizPage() {
                   className="mt-4 flex items-center justify-between"
                 >
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-gray-400 text-sm">{filtered.length} şube bulundu</span>
+                    <span className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-sm">{filtered.length} şube bulundu</span>
                     {selectedDistrict !== "Tümü" && (
                       <span className="glass text-[#D4AF37] text-xs px-3 py-1 rounded-full border border-[#D4AF37]/30 flex items-center gap-1">
                         {selectedDistrict}
@@ -143,7 +143,7 @@ export default function SubelerimizPage() {
                   </div>
                   <button
                     onClick={clearFilters}
-                    className="text-gray-400 hover:text-[#D4AF37] text-xs flex items-center gap-1 transition-colors"
+                    className="text-gray-500 dark:text-gray-500 dark:text-gray-400 hover:text-[#D4AF37] text-xs flex items-center gap-1 transition-colors"
                   >
                     <X className="w-3.5 h-3.5" /> Filtreleri Temizle
                   </button>
@@ -167,7 +167,7 @@ export default function SubelerimizPage() {
                 className="text-center py-20"
               >
                 <Building2 className="w-12 h-12 mx-auto text-gray-600 mb-4" />
-                <p className="text-gray-400">Arama kriterlerinize uygun şube bulunamadı.</p>
+                <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400">Arama kriterlerinize uygun şube bulunamadı.</p>
                 <button onClick={clearFilters} className="mt-4 text-[#D4AF37] text-sm hover:underline">
                   Tüm şubeleri göster
                 </button>
@@ -186,14 +186,14 @@ export default function SubelerimizPage() {
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.3, delay: i * 0.05 }}
                   >
-                    <div className="glass rounded-2xl p-6 card-hover border border-white/5 hover:border-[#D4AF37]/25 h-full flex flex-col">
+                    <div className="glass rounded-2xl p-6 card-hover border border-black/5 dark:border-white/5 hover:border-[#D4AF37]/25 h-full flex flex-col">
                       {/* Header */}
                       <div className="flex items-start gap-3 mb-4">
                         <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-[#D4AF37]/20 to-[#A8882A]/10 flex items-center justify-center">
                           <Building2 className="w-5 h-5 text-[#D4AF37]" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-white font-bold text-sm leading-tight mb-1">{branch.name}</h3>
+                          <h3 className="text-[#0a1628] dark:text-white font-bold text-sm leading-tight mb-1">{branch.name}</h3>
                           <span className="inline-block text-[10px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-[#D4AF37]/15 text-[#D4AF37] border border-[#D4AF37]/20">
                             {branch.type}
                           </span>
@@ -204,14 +204,14 @@ export default function SubelerimizPage() {
                         {/* Address */}
                         <div className="flex items-start gap-2.5">
                           <MapPin className="w-4 h-4 text-[#D4AF37] flex-shrink-0 mt-0.5" />
-                          <span className="text-gray-400 text-xs leading-relaxed">{branch.address}</span>
+                          <span className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-xs leading-relaxed">{branch.address}</span>
                         </div>
 
                         {/* Phone */}
                         <div className="flex items-center gap-2.5">
                           <Phone className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
                           <a href={`tel:${branch.phone.replace(/\s/g, "")}`}
-                            className="text-gray-300 text-xs hover:text-[#D4AF37] transition-colors">
+                            className="text-gray-600 dark:text-gray-300 text-xs hover:text-[#D4AF37] transition-colors">
                             {branch.phone}
                           </a>
                         </div>
@@ -221,7 +221,7 @@ export default function SubelerimizPage() {
                           <div className="flex items-center gap-2.5">
                             <Mail className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
                             <a href={`mailto:${branch.email}`}
-                              className="text-gray-400 text-xs hover:text-[#D4AF37] transition-colors truncate">
+                              className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-xs hover:text-[#D4AF37] transition-colors truncate">
                               {branch.email}
                             </a>
                           </div>
@@ -229,8 +229,8 @@ export default function SubelerimizPage() {
                       </div>
 
                       {/* District tag + Map link */}
-                      <div className="mt-4 pt-4 border-t border-white/5 flex items-center justify-between">
-                        <span className="text-xs text-gray-500 flex items-center gap-1">
+                      <div className="mt-4 pt-4 border-t border-black/5 dark:border-white/5 flex items-center justify-between">
+                        <span className="text-xs text-gray-500 dark:text-gray-500 flex items-center gap-1">
                           <MapPin className="w-3 h-3" /> {branch.district}
                         </span>
                         <a
@@ -256,10 +256,10 @@ export default function SubelerimizPage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <AnimatedSection>
             <div className="glass rounded-3xl p-10 border border-[#D4AF37]/20">
-              <h2 className="text-2xl sm:text-3xl font-black text-white mb-3">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#0a1628] dark:text-white mb-3">
                 Yakınınızdaki Şubeyi <span className="text-gold-gradient">Ziyaret Edin</span>
               </h2>
-              <p className="text-gray-400 mb-6 text-sm">
+              <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 mb-6 text-sm">
                 Ücretsiz tanışma görüşmesi için bugün arayın veya formu doldurun.
               </p>
               <Link href="/iletisim"
