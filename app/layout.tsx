@@ -1,47 +1,59 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { site } from "@/lib/site";
+import { branches } from "@/lib/branches";
 
 const inter = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   variable: "--font-inter",
+  display: "swap",
 });
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#faf8f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#060D18" },
+  ],
+};
 
 export const metadata: Metadata = {
   title: {
-    default: "Deneme Üssü | İstanbul'un Premium Sınav Kulübü",
+    default: site.title,
     template: "%s | Deneme Üssü",
   },
-  description:
-    "Deneme Üssü, İstanbul merkezli premium eğitim ve sınav kulübü. 7 Aşamalı bilimsel sistem, dijital takip, kişisel rehberlik ve net analizleri ile TYT/AYT hedeflerinize ulaşın.",
+  description: site.description,
+  applicationName: site.name,
   keywords: [
     "deneme sınavı",
     "tyt deneme",
     "ayt deneme",
+    "lgs deneme",
     "istanbul dershane",
     "sınav kulübü",
     "net analizi",
     "konu takip",
     "özel öğretim",
   ],
-  authors: [{ name: "Deneme Üssü" }],
-  creator: "Deneme Üssü",
-  metadataBase: new URL("https://www.denemeusu.com"),
+  authors: [{ name: site.name }],
+  creator: site.name,
+  metadataBase: new URL(site.url),
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "tr_TR",
-    url: "https://www.denemeusu.com",
-    siteName: "Deneme Üssü",
-    title: "Deneme Üssü | İstanbul'un Premium Sınav Kulübü",
+    url: site.url,
+    siteName: site.name,
+    title: site.title,
     description:
       "7 Aşamalı bilimsel sistem ile TYT/AYT hedeflerinize ulaşın. Dijital takip, kişisel rehberlik, net analizleri.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Deneme Üssü | İstanbul'un Premium Sınav Kulübü",
+    title: site.title,
     description: "7 Aşamalı bilimsel sistem ile TYT/AYT hedeflerinize ulaşın.",
   },
   robots: {
@@ -49,6 +61,33 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
+  formatDetection: { telephone: false },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  name: site.name,
+  url: site.url,
+  logo: `${site.url}/logo.png`,
+  description: site.description,
+  email: site.email,
+  telephone: site.phone,
+  sameAs: [site.instagram],
+  areaServed: { "@type": "City", name: "İstanbul" },
+  department: branches.map((b) => ({
+    "@type": "EducationalOrganization",
+    name: b.name,
+    telephone: b.phone,
+    ...(b.email && { email: b.email }),
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: b.address,
+      addressLocality: b.district,
+      addressRegion: "İstanbul",
+      addressCountry: "TR",
+    },
+  })),
 };
 
 export default function RootLayout({
@@ -57,11 +96,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr" className={`${inter.variable} h-full antialiased`} suppressHydrationWarning>
-      <body className="min-h-full flex flex-col bg-[#faf8f2] dark:bg-[#060D18] text-[#0a1628] dark:text-white transition-colors duration-300">
+    <html
+      lang="tr"
+      className={`${inter.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
+      <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+        />
         <ThemeProvider>
+          <a
+            href="#icerik"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-gold focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-navy-dark"
+          >
+            İçeriğe geç
+          </a>
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main id="icerik" className="flex-1">
+            {children}
+          </main>
           <Footer />
         </ThemeProvider>
       </body>

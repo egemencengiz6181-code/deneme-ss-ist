@@ -1,13 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import {
   BarChart3, TrendingUp, Database, FileSpreadsheet,
-  BookMarked, ArrowRight, Trophy, CheckCircle, Star,
+  BookMarked, Trophy, CheckCircle, Star,
   Folder, Monitor, Activity,
 } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
+import { CtaSection, PageHero, SectionHeading } from "@/components/PageSections";
 
 const trackingFeatures = [
   {
@@ -87,12 +87,12 @@ function MiniBarChart() {
               transition={{ duration: 0.8, delay: i * 0.1 + 0.05, ease: "easeOut" }}
             />
           </div>
-          <span className="text-gray-500 dark:text-gray-500 text-[10px]">{label}</span>
+          <span className="text-muted-foreground text-[10px]">{label}</span>
         </div>
       ))}
       <div className="flex flex-col justify-end gap-1 pb-4 text-[10px]">
-        <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#D4AF37]" /><span className="text-gray-500 dark:text-gray-500 dark:text-gray-400">TYT</span></div>
-        <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#C41E3A]" /><span className="text-gray-500 dark:text-gray-500 dark:text-gray-400">AYT</span></div>
+        <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#D4AF37]" /><span className="text-muted-foreground">TYT</span></div>
+        <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#C41E3A]" /><span className="text-muted-foreground">AYT</span></div>
       </div>
     </div>
   );
@@ -108,44 +108,25 @@ export default function DijitalTakipPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(212,175,55,0.08),transparent)]" />
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 glass rounded-full px-4 py-2 mb-6 text-sm text-[#D4AF37] border border-[#D4AF37]/30">
-            <BarChart3 className="w-4 h-4" />
-            <span className="font-semibold">Veri Odaklı Öğrenci Takibi</span>
-          </motion.div>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl sm:text-6xl font-black text-[#0a1628] dark:text-white mb-6">
-            Dijital Deneme <span className="text-gold-gradient">Takip Sistemi</span>
-          </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-lg max-w-2xl mx-auto">
-            Her denemenin verisi dijital olarak kaydedilir, analiz edilir ve görselleştirilir.
-            Netlerinizin istikrarlı yükselişini takip edin.
-          </motion.p>
-        </div>
-      </section>
+      <PageHero icon={BarChart3} badge="Veri Odaklı Öğrenci Takibi" title="Dijital Deneme" highlight="Takip Sistemi">
+        Her denemenin verisi dijital olarak kaydedilir, analiz edilir ve görselleştirilir. Netlerinizin istikrarlı
+        yükselişini takip edin.
+      </PageHero>
 
       {/* Tracking Features */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-black text-[#0a1628] dark:text-white mb-3">
-              Dijital Takip <span className="text-gold-gradient">Bileşenleri</span>
-            </h2>
-          </AnimatedSection>
+          <SectionHeading title="Dijital Takip" highlight="Bileşenleri" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {trackingFeatures.map(({ icon: Icon, title, desc, color }, i) => (
               <AnimatedSection key={title} delay={i * 0.1}>
-                <div className="glass rounded-2xl p-6 card-hover border border-black/5 dark:border-white/5 hover:border-[#D4AF37]/20 h-full">
+                <div className="glass rounded-2xl p-6 card-hover hover:border-gold/20 h-full">
                   <div className="w-12 h-12 rounded-xl mb-4 flex items-center justify-center"
                     style={{ background: `${color}20` }}>
                     <Icon className="w-6 h-6" style={{ color }} />
                   </div>
-                  <h3 className="text-[#0a1628] dark:text-white font-bold mb-2">{title}</h3>
-                  <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{desc}</p>
+                  <h3 className="text-foreground font-bold mb-2">{title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{desc}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -154,48 +135,48 @@ export default function DijitalTakipPage() {
       </section>
 
       {/* Chart Section */}
-      <section className="py-20 bg-gradient-to-b from-transparent via-[#f0ece2]/80 dark:via-[#0A1628]/50 to-transparent">
+      <section className="py-20 bg-gradient-to-b from-transparent via-secondary/80 dark:via-navy/50 to-transparent">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection direction="left">
-              <h2 className="text-3xl font-black text-[#0a1628] dark:text-white mb-4">
+              <h2 className="text-3xl font-black text-foreground mb-4">
                 Haftalık Net Artışı <span className="text-gold-gradient">Grafiği</span>
               </h2>
-              <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 mb-6 leading-relaxed">
+              <p className="text-muted-foreground mb-6 leading-relaxed">
                 Tüm deneme sınavları bazında ortalama net sayılarınızdaki haftalık değişimi takip edin.
                 İstikrarlı yükselişi görselleştirin.
               </p>
               <div className="space-y-3">
-                {weeklyData.map(({ label, tyt, ayt }) => (
+                {weeklyData.map(({ label, tyt }) => (
                   <div key={label} className="flex items-center gap-4 text-sm">
-                    <span className="text-gray-500 dark:text-gray-500 w-12">{label}</span>
-                    <div className="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
+                    <span className="text-muted-foreground w-12">{label}</span>
+                    <div className="flex-1 h-2 bg-foreground/10 rounded-full overflow-hidden">
                       <motion.div className="h-full rounded-full bg-gradient-to-r from-[#D4AF37] to-[#F0C040]"
                         initial={{ width: 0 }}
                         animate={{ width: `${(tyt / 80) * 100}%` }}
                         transition={{ duration: 1, delay: 0.3 }} />
                     </div>
-                    <span className="text-[#D4AF37] font-bold w-16">TYT {tyt}</span>
+                    <span className="text-gold-ink font-bold w-16">TYT {tyt}</span>
                   </div>
                 ))}
               </div>
             </AnimatedSection>
 
             <AnimatedSection direction="right">
-              <div className="glass rounded-2xl p-6 border border-[#D4AF37]/20">
+              <div className="glass rounded-2xl p-6 border border-gold/20">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-[#0a1628] dark:text-white font-bold">Net Gelişim Grafiği</h3>
-                  <span className="text-xs text-[#D4AF37] glass px-3 py-1 rounded-full">Son 4 Hafta</span>
+                  <h3 className="text-foreground font-bold">Net Gelişim Grafiği</h3>
+                  <span className="text-xs text-gold-ink glass px-3 py-1 rounded-full">Son 4 Hafta</span>
                 </div>
                 <MiniBarChart />
                 <div className="mt-4 grid grid-cols-2 gap-3">
                   <div className="bg-black/5 dark:bg-white/5 rounded-xl p-3 text-center">
-                    <div className="text-[#D4AF37] font-black text-xl">+22</div>
-                    <div className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-xs">TYT Net Artışı</div>
+                    <div className="text-gold-ink font-black text-xl">+22</div>
+                    <div className="text-muted-foreground text-xs">TYT Net Artışı</div>
                   </div>
                   <div className="bg-black/5 dark:bg-white/5 rounded-xl p-3 text-center">
                     <div className="text-[#C41E3A] font-black text-xl">+16</div>
-                    <div className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-xs">AYT Net Artışı</div>
+                    <div className="text-muted-foreground text-xs">AYT Net Artışı</div>
                   </div>
                 </div>
               </div>
@@ -207,15 +188,9 @@ export default function DijitalTakipPage() {
       {/* Hata Defteri */}
       <section className="py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12">
-            <span className="inline-block text-[#D4AF37] text-sm font-bold tracking-widest uppercase mb-3">Kalıcı Öğrenme</span>
-            <h2 className="text-3xl sm:text-4xl font-black text-[#0a1628] dark:text-white mb-3">
-              Hata Defteri <span className="text-gold-gradient">Sistemi</span>
-            </h2>
-            <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-              Aynı hatayı iki kez yapma. Sistematik kayıt, analiz ve kalıcı öğrenme döngüsü.
-            </p>
-          </AnimatedSection>
+          <SectionHeading eyebrow="Kalıcı Öğrenme" title="Hata Defteri" highlight="Sistemi">
+            Aynı hatayı iki kez yapma. Sistematik kayıt, analiz ve kalıcı öğrenme döngüsü.
+          </SectionHeading>
 
           <div className="relative">
             {/* Connection line */}
@@ -229,12 +204,12 @@ export default function DijitalTakipPage() {
                       style={{ background: `${color}20`, border: `1px solid ${color}40` }}>
                       <Icon className="w-7 h-7" style={{ color }} />
                     </div>
-                    <div className="glass rounded-2xl p-6 flex-1 border border-black/5 dark:border-white/5 hover:border-[#D4AF37]/20 card-hover">
+                    <div className="glass rounded-2xl p-6 flex-1 hover:border-gold/20 card-hover">
                       <div className="flex items-center gap-2 mb-2">
                         <span className="text-xs font-bold tracking-widest uppercase" style={{ color }}>Adım {step}</span>
                       </div>
-                      <h3 className="text-[#0a1628] dark:text-white font-black text-xl mb-2">{title}</h3>
-                      <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{desc}</p>
+                      <h3 className="text-foreground font-black text-xl mb-2">{title}</h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{desc}</p>
                     </div>
                   </div>
                 </AnimatedSection>
@@ -245,27 +220,21 @@ export default function DijitalTakipPage() {
       </section>
 
       {/* Gamification Badges */}
-      <section className="py-20 bg-gradient-to-b from-transparent via-[#f0ece2]/80 dark:via-[#0A1628]/40 to-transparent">
+      <section className="py-20 bg-gradient-to-b from-transparent via-secondary/80 dark:via-navy/40 to-transparent">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12">
-            <span className="inline-block text-[#D4AF37] text-sm font-bold tracking-widest uppercase mb-3">Motivasyon Sistemi</span>
-            <h2 className="text-3xl sm:text-4xl font-black text-[#0a1628] dark:text-white mb-3">
-              Motivasyon Artırıcı <span className="text-gold-gradient">Ödüller</span>
-            </h2>
-            <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-              Dijital ödüller, rozetler ve animasyonlar. Her hedefe ulaştığında yeni bir motivasyon dalgası.
-            </p>
-          </AnimatedSection>
+          <SectionHeading eyebrow="Motivasyon Sistemi" title="Motivasyon Artırıcı" highlight="Ödüller">
+            Dijital ödüller, rozetler ve animasyonlar. Her hedefe ulaştığında yeni bir motivasyon dalgası.
+          </SectionHeading>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {badges.map(({ icon: Icon, title, desc }, i) => (
               <AnimatedSection key={title} delay={i * 0.15}>
-                <div className="glass rounded-2xl p-8 text-center card-hover border border-[#D4AF37]/10 hover:border-[#D4AF37]/30">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#A8882A] flex items-center justify-center glow-gold trophy-pulse">
-                    <Icon className="w-8 h-8 text-[#060D18]" />
+                <div className="glass rounded-2xl p-8 text-center card-hover hover:border-gold/30">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center glow-gold trophy-pulse">
+                    <Icon className="w-8 h-8 text-navy-dark" />
                   </div>
-                  <h3 className="text-[#0a1628] dark:text-white font-bold text-lg mb-2">{title}</h3>
-                  <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-sm">{desc}</p>
+                  <h3 className="text-foreground font-bold text-lg mb-2">{title}</h3>
+                  <p className="text-muted-foreground text-sm">{desc}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -274,26 +243,13 @@ export default function DijitalTakipPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <AnimatedSection>
-            <h2 className="text-3xl font-black text-[#0a1628] dark:text-white mb-4">
-              Dijital Takibi <span className="text-gold-gradient">Başlat!</span>
-            </h2>
-            <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 mb-8">Netlerini sistematik olarak takip etmeye bugün başla.</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/iletisim"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37] to-[#A8882A] text-[#060D18] font-black px-8 py-4 rounded-full hover:from-[#F0C040] hover:to-[#D4AF37] transition-all duration-200 text-sm">
-                Ücretsiz Başla <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link href="/basari-modelimiz"
-                className="inline-flex items-center gap-2 glass-button text-[#D4AF37] font-bold px-8 py-4 rounded-full text-sm">
-                7 Aşamalı Modeli İncele
-              </Link>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
+      <CtaSection
+        title="Dijital Takibi"
+        highlight="Başlat!"
+        text="Netlerini sistematik olarak takip etmeye bugün başla."
+        primary={{ href: "/iletisim", label: "Ücretsiz Başla" }}
+        secondary={{ href: "/basari-modelimiz", label: "7 Aşamalı Modeli İncele" }}
+      />
     </>
   );
 }

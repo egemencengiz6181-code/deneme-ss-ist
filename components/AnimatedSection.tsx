@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 
 interface AnimatedSectionProps {
   children: React.ReactNode;
@@ -18,12 +18,14 @@ export default function AnimatedSection({
 }: AnimatedSectionProps) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const reduceMotion = useReducedMotion();
+  const offset = reduceMotion ? 0 : 40;
 
   const variants = {
     hidden: {
       opacity: 0,
-      y: direction === "up" ? 40 : 0,
-      x: direction === "left" ? -40 : direction === "right" ? 40 : 0,
+      y: direction === "up" ? offset : 0,
+      x: direction === "left" ? -offset : direction === "right" ? offset : 0,
     },
     visible: {
       opacity: 1,

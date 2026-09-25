@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
+import { site } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.denemeusu.com";
   const routes = [
     { url: "/", priority: 1.0, changeFrequency: "weekly" as const },
     { url: "/kurumsal", priority: 0.8, changeFrequency: "monthly" as const },
@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return routes.map(({ url, priority, changeFrequency }) => ({
-    url: `${baseUrl}${url}`,
+    url: `${site.url}${url === "/" ? "" : url}`,
     lastModified: new Date(),
     changeFrequency,
     priority,

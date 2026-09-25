@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 
 export interface ScrollReelTestimonial {
   quote: string;
@@ -27,7 +28,7 @@ const EASE_INOUT = "cubic-bezier(0.65,0,0.35,1)";
 const QUOTE_CLASSES =
   "m-0 text-lg font-medium leading-[1.3] tracking-[-0.02em] text-[#0a1628] dark:text-white sm:text-[22px]";
 const AUTHOR_CLASSES =
-  "m-0 text-sm font-medium leading-[1.3] text-[#5a6a7a] dark:text-[#9ca3af]";
+  "m-0 text-sm font-medium leading-[1.3] text-muted-foreground";
 
 const FEATURED_SHADOW =
   "0 1.008px 0.705px -0.563px rgba(0,0,0,0.18), 0 2.389px 1.672px -1.125px rgba(0,0,0,0.17), 0 4.357px 3.05px -1.688px rgba(0,0,0,0.17), 0 7.244px 5.07px -2.25px rgba(0,0,0,0.16), 0 11.698px 8.188px -2.813px rgba(0,0,0,0.15), 0 19.148px 13.404px -3.375px rgba(0,0,0,0.13), 0 32.972px 23.08px -3.938px rgba(0,0,0,0.09), 0 60px 42px -4.5px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -1px 0 rgba(0,0,0,0.6)";
@@ -52,11 +53,12 @@ function Featured({ src, alt }: { src: string; alt?: string }) {
       className="relative shrink-0 overflow-hidden rounded-xl bg-[#f0ece2] dark:bg-[#0A1628]"
       style={{ width: CELL, height: CELL, boxShadow: FEATURED_SHADOW }}
     >
-      <img
+      <Image
         src={src}
         alt={alt ?? ""}
-        loading="lazy"
-        className="absolute inset-0 h-full w-full object-cover object-[center_30%]"
+        fill
+        sizes="122px"
+        className="object-cover object-[center_30%]"
       />
       <div
         aria-hidden="true"
@@ -132,20 +134,20 @@ export function ScrollReelTestimonials({
   const count = testimonials.length;
 
   React.useEffect(() => {
+    const pending = timeouts.current;
     const raf = requestAnimationFrame(() =>
       requestAnimationFrame(() => setMounted(true))
     );
     return () => {
       cancelAnimationFrame(raf);
-      timeouts.current.forEach(clearTimeout);
+      pending.forEach(clearTimeout);
     };
   }, []);
 
-  const paginate = React.useCallback(
-    (dir: 1 | -1) => {
+  const goTo = React.useCallback(
+    (next: number) => {
       if (animating.current) return;
-      const next = index + dir;
-      if (next < 0 || next >= count) return;
+      if (next < 0 || next >= count || next === index) return;
       animating.current = true;
 
       setIndex(next);
@@ -165,6 +167,8 @@ export function ScrollReelTestimonials({
     },
     [index, count]
   );
+
+  const paginate = (dir: 1 | -1) => goTo(index + dir);
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowRight") {
@@ -324,10 +328,10 @@ export function ScrollReelTestimonials({
             onClick={() => paginate(-1)}
             disabled={index === 0}
             aria-label="Önceki yorum"
-            className="grid h-6 w-6 cursor-pointer place-items-center rounded-full border border-[#0a1628]/20 dark:border-white/15 bg-transparent p-0 text-[#0a1628] dark:text-white transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:enabled:scale-[1.08] active:enabled:scale-[0.94] disabled:cursor-default disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
+            className="grid h-8 w-8 cursor-pointer place-items-center rounded-full border border-[#0a1628]/20 dark:border-white/15 bg-transparent p-0 text-[#0a1628] dark:text-white transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:enabled:scale-[1.08] active:enabled:scale-[0.94] disabled:cursor-default disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
           >
             <svg
-              className="h-3 w-3 opacity-70"
+              className="h-3.5 w-3.5 opacity-70"
               viewBox="0 0 12 12"
               fill="none"
               stroke="currentColor"
@@ -343,10 +347,10 @@ export function ScrollReelTestimonials({
             onClick={() => paginate(1)}
             disabled={index === count - 1}
             aria-label="Sonraki yorum"
-            className="grid h-6 w-6 cursor-pointer place-items-center rounded-full border border-[#0a1628]/20 dark:border-white/15 bg-transparent p-0 text-[#0a1628] dark:text-white transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:enabled:scale-[1.08] active:enabled:scale-[0.94] disabled:cursor-default disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
+            className="grid h-8 w-8 cursor-pointer place-items-center rounded-full border border-[#0a1628]/20 dark:border-white/15 bg-transparent p-0 text-[#0a1628] dark:text-white transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:enabled:scale-[1.08] active:enabled:scale-[0.94] disabled:cursor-default disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
           >
             <svg
-              className="h-3 w-3 opacity-70"
+              className="h-3.5 w-3.5 opacity-70"
               viewBox="0 0 12 12"
               fill="none"
               stroke="currentColor"
@@ -363,25 +367,12 @@ export function ScrollReelTestimonials({
               <button
                 key={i}
                 type="button"
-                onClick={() => {
-                  if (!animating.current) {
-                    const dir = i > index ? 1 : -1;
-                    const steps = Math.abs(i - index);
-                    let step = 0;
-                    const doStep = () => {
-                      if (step < steps) {
-                        paginate(dir);
-                        step++;
-                        setTimeout(doStep, SLIDE_MS + 50);
-                      }
-                    };
-                    doStep();
-                  }
-                }}
+                onClick={() => goTo(i)}
+                aria-current={i === index ? "true" : undefined}
                 aria-label={`Yorum ${i + 1}`}
-                className={`rounded-full transition-all duration-200 ${
+                className={`rounded-full transition-all duration-200 p-0 ${
                   i === index
-                    ? "w-4 h-1.5 bg-[#D4AF37]"
+                    ? "w-5 h-1.5 bg-[#D4AF37]"
                     : "w-1.5 h-1.5 bg-[#D4AF37]/30 hover:bg-[#D4AF37]/60"
                 }`}
               />

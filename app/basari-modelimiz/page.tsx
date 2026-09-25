@@ -2,12 +2,12 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import Link from "next/link";
 import {
   Target, Zap, BarChart3, Users, BookOpen, Medal, Heart,
   ArrowRight, ChevronDown, Trophy, CheckCircle, Star,
 } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
+import { CtaSection, PageHero, SectionHeading } from "@/components/PageSections";
 
 const stages = [
   {
@@ -51,7 +51,7 @@ const stages = [
     icon: BarChart3,
     color: "#D4AF37",
     bg: "from-[#D4AF37]/20 to-[#A8882A]/5",
-    border: "border-[#D4AF37]/30",
+    border: "border-gold/30",
     description:
       "Her deneme sonrası net puanlar, sıralamalar ve ders bazlı başarı oranları anlık olarak hesaplanır. Konu bazlı hata tespiti yapılır.",
     details: [
@@ -132,7 +132,7 @@ const stages = [
 ];
 
 function StageCard({ stage, index }: { stage: (typeof stages)[0]; index: number }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(index === 0);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const Icon = stage.icon;
@@ -140,6 +140,8 @@ function StageCard({ stage, index }: { stage: (typeof stages)[0]; index: number 
   return (
     <motion.div
       ref={ref}
+      id={`asama-${stage.number}`}
+      className="scroll-mt-28"
       initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
       animate={inView ? { opacity: 1, x: 0 } : {}}
       transition={{ duration: 0.6, delay: 0.1 }}
@@ -150,12 +152,15 @@ function StageCard({ stage, index }: { stage: (typeof stages)[0]; index: number 
       >
         {/* Header */}
         <button
+          type="button"
           onClick={() => setOpen(!open)}
-          className="w-full p-6 flex items-center gap-5 text-left"
+          aria-expanded={open}
+          aria-controls={`asama-${stage.number}-detay`}
+          className="w-full p-5 sm:p-6 flex items-center gap-4 sm:gap-5 text-left rounded-2xl"
         >
           {/* Step number */}
           <div
-            className="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center font-black text-xl text-[#060D18]"
+            className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center font-black text-xl text-navy-dark"
             style={{ background: `linear-gradient(135deg, ${stage.color}, ${stage.color}99)`, boxShadow: `0 0 20px ${stage.color}50` }}
           >
             {stage.number}
@@ -167,34 +172,36 @@ function StageCard({ stage, index }: { stage: (typeof stages)[0]; index: number 
                 Aşama {stage.number}
               </span>
             </div>
-            <h3 className="text-[#0a1628] dark:text-white font-black text-xl leading-tight">{stage.title}</h3>
-            <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-sm">{stage.subtitle}</p>
+            <h3 className="text-foreground font-black text-lg sm:text-xl leading-tight">{stage.title}</h3>
+            <p className="text-muted-foreground text-sm">{stage.subtitle}</p>
           </div>
           <ChevronDown
-            className={`w-5 h-5 text-gray-500 dark:text-gray-500 dark:text-gray-400 flex-shrink-0 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+            className={`w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
           />
         </button>
 
         {/* Expanded */}
         <motion.div
+          id={`asama-${stage.number}-detay`}
+          inert={!open}
           initial={false}
           animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
           transition={{ duration: 0.3 }}
           className="overflow-hidden"
         >
           <div className="px-6 pb-6 border-t border-black/10 dark:border-white/10 pt-5">
-            <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6">{stage.description}</p>
+            <p className="text-foreground/80 text-sm leading-relaxed mb-6">{stage.description}</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               {stage.details.map(({ label, desc }) => (
                 <div key={label} className="bg-black/5 dark:bg-white/5 rounded-xl p-4">
                   <div className="font-bold text-sm mb-1" style={{ color: stage.color }}>{label}</div>
-                  <div className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-xs">{desc}</div>
+                  <div className="text-muted-foreground text-xs">{desc}</div>
                 </div>
               ))}
             </div>
             <div className="flex flex-wrap gap-2">
               {stage.highlights.map((h) => (
-                <span key={h} className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/5 text-gray-600 dark:text-gray-300">
+                <span key={h} className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/5 text-foreground/80">
                   <CheckCircle className="w-3 h-3" style={{ color: stage.color }} />
                   {h}
                 </span>
@@ -211,60 +218,32 @@ export default function BasariModelimizPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(212,175,55,0.1),transparent)]" />
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 glass rounded-full px-4 py-2 mb-6 text-sm text-[#D4AF37] border border-[#D4AF37]/30"
-          >
-            <Trophy className="w-4 h-4" />
-            <span className="font-semibold">Bilimsel Başarı Metodolojisi</span>
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl sm:text-6xl font-black text-[#0a1628] dark:text-white mb-6"
-          >
-            7 Aşamalı{" "}
-            <span className="text-gold-gradient">Başarı Modeli</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-lg max-w-2xl mx-auto mb-10"
-          >
-            Her aşama, bir öncekinin üzerine inşa edilen bilimsel bir döngü oluşturur.
-            Öğrencinin hedefleri ve profiliyle uyumlu, kişiselleştirilmiş başarı yolculuğu.
-          </motion.p>
-
-          {/* Journey line */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="flex items-center justify-center gap-2 flex-wrap"
-          >
+      <PageHero
+        icon={Trophy}
+        badge="Bilimsel Başarı Metodolojisi"
+        title="7 Aşamalı"
+        highlight="Başarı Modeli"
+        extra={
+          <ol className="mt-10 flex items-center justify-center gap-2 flex-wrap" aria-label="Aşamalar">
             {stages.map((s, i) => (
-              <div key={s.number} className="flex items-center gap-2">
-                <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black text-[#060D18]"
-                  style={{ background: `linear-gradient(135deg, ${s.color}, ${s.color}80)` }}
+              <li key={s.number} className="flex items-center gap-2">
+                <a
+                  href={`#asama-${s.number}`}
+                  aria-label={`Aşama ${s.number}: ${s.title}`}
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black text-navy-dark hover:scale-110 transition-transform"
+                  style={{ background: `linear-gradient(135deg, ${s.color}, ${s.color}99)` }}
                 >
                   {s.number}
-                </div>
-                {i < stages.length - 1 && (
-                  <ArrowRight className="w-4 h-4 text-gray-600" />
-                )}
-              </div>
+                </a>
+                {i < stages.length - 1 && <ArrowRight className="w-4 h-4 text-muted-foreground/60" aria-hidden="true" />}
+              </li>
             ))}
-          </motion.div>
-        </div>
-      </section>
+          </ol>
+        }
+      >
+        Her aşama, bir öncekinin üzerine inşa edilen bilimsel bir döngü oluşturur. Öğrencinin hedefleri ve profiliyle
+        uyumlu, kişiselleştirilmiş başarı yolculuğu.
+      </PageHero>
 
       {/* Stages */}
       <section className="py-10 pb-20">
@@ -276,16 +255,11 @@ export default function BasariModelimizPage() {
       </section>
 
       {/* Cycle visual */}
-      <section className="py-20 bg-gradient-to-b from-transparent via-[#f0ece2]/80 dark:via-[#0A1628]/40 to-transparent">
+      <section className="py-20 bg-gradient-to-b from-transparent via-secondary/80 dark:via-navy/40 to-transparent">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <AnimatedSection className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-black text-[#0a1628] dark:text-white mb-4">
-              Döngüsel <span className="text-gold-gradient">Gelişim Sistemi</span>
-            </h2>
-            <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-              Her deneme döngüsü bir öncekinden daha güçlü başlar. Net artışı istikrarlı ve ölçülebilir.
-            </p>
-          </AnimatedSection>
+          <SectionHeading title="Döngüsel" highlight="Gelişim Sistemi">
+            Her deneme döngüsü bir öncekinden daha güçlü başlar. Net artışı istikrarlı ve ölçülebilir.
+          </SectionHeading>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
@@ -295,12 +269,12 @@ export default function BasariModelimizPage() {
               { net: "NET 70", label: "4. Hafta", week: 4 },
             ].map(({ net, label, week }, i) => (
               <AnimatedSection key={net} delay={i * 0.15}>
-                <div className="glass rounded-2xl p-6 text-center card-hover border border-[#D4AF37]/10 hover:border-[#D4AF37]/30">
-                  <div className="text-[#D4AF37] font-black text-2xl mb-1">{net}</div>
-                  <div className="text-gray-500 dark:text-gray-500 dark:text-gray-400 text-sm">{label}</div>
+                <div className="glass rounded-2xl p-6 text-center card-hover hover:border-gold/30">
+                  <div className="text-gold-ink font-black text-2xl mb-1">{net}</div>
+                  <div className="text-muted-foreground text-sm">{label}</div>
                   <div className="mt-3 flex justify-center gap-0.5">
                     {[...Array(week)].map((_, j) => (
-                      <Star key={j} className="w-3 h-3 fill-[#D4AF37] text-[#D4AF37]" />
+                      <Star key={j} className="w-3 h-3 fill-gold text-gold-ink" />
                     ))}
                   </div>
                 </div>
@@ -311,29 +285,13 @@ export default function BasariModelimizPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <AnimatedSection>
-            <Trophy className="w-12 h-12 mx-auto mb-4 text-[#D4AF37] trophy-pulse" />
-            <h2 className="text-3xl font-black text-[#0a1628] dark:text-white mb-4">
-              Bu Sistemi <span className="text-gold-gradient">Yaşa!</span>
-            </h2>
-            <p className="text-gray-500 dark:text-gray-500 dark:text-gray-400 mb-8">
-              7 aşamalı sistemimizin tüm avantajlarından yararlanmak için hemen başvur.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/iletisim"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37] to-[#A8882A] text-[#060D18] font-black px-8 py-4 rounded-full hover:from-[#F0C040] hover:to-[#D4AF37] transition-all duration-200 text-sm">
-                Ücretsiz Danışma Al <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link href="/dijital-takip"
-                className="inline-flex items-center gap-2 glass-button text-[#D4AF37] font-bold px-8 py-4 rounded-full text-sm">
-                Dijital Takip Sistemi
-              </Link>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
+      <CtaSection
+        title="Bu Sistemi"
+        highlight="Yaşa!"
+        text="7 aşamalı sistemimizin tüm avantajlarından yararlanmak için hemen başvur."
+        primary={{ href: "/iletisim", label: "Ücretsiz Danışma Al" }}
+        secondary={{ href: "/dijital-takip", label: "Dijital Takip Sistemi" }}
+      />
     </>
   );
 }
